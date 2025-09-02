@@ -12,15 +12,6 @@ namespace Todo.WebService.Controllers
     public class ItemController : ControllerBase
     {
         private readonly IItemService _itemService;
-        //private readonly IRabbitMqService _rabbitMqService;
-
-
-
-        //public ItemController(IItemService itemService, IRabbitMqService rabbitMqService)
-        //{
-        //    _itemService = itemService;
-        //    _rabbitMqService = rabbitMqService;
-        //}
 
         public ItemController(IItemService itemService)
         {
@@ -38,49 +29,6 @@ namespace Todo.WebService.Controllers
         {
             return "value";
         }
-
-        //[HttpPost("create")]
-        //public async Task<IActionResult> CreateItem([FromBody] CreateItemRequest request)
-        //{
-        //    var message = new ItemMessageDto
-        //    {
-        //        Title = request.Title,
-        //        Description = request.Description, // ← חשוב!
-        //        UserId = request.UserId,
-        //        Action = "Create"
-        //    };
-        //    await _rabbitMqService.SendMessageAsync(message, "item_queue");
-        //    return Accepted("Item sent to queue");
-        //}
-
-        //[HttpPatch("complete/{id}")]
-        //public async Task<IActionResult> CompleteItem(int id)
-        //{
-        //    var message = new ItemMessageDto
-        //    {
-        //        ItemId = id,
-        //        Action = "Complete"
-        //    };
-
-        //    await _rabbitMqService.SendMessageAsync(message, "item_queue");
-        //    return NoContent();
-        //}
-
-
-        //[HttpDelete("{id}/delete")]
-        //public async Task<IActionResult> DeleteItem(int id)
-        //{
-        //    var message = new ItemMessageDto
-        //    {
-        //        ItemId = id,
-        //        Action = "Delete"
-        //    };
-
-
-        //    await _rabbitMqService.SendMessageAsync(message, "item_queue");
-        //    return NoContent();
-        //}
-
 
         [HttpPost("create")]
         public async Task<IActionResult> CreateItem([FromBody] CreateItemRequest request)

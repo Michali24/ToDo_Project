@@ -12,24 +12,6 @@ namespace ToDo.Service.Services
 {
     public class UserService: IUserService
     {
-        //private readonly IUserRepository _userRepository;
-
-        //public UserService(IUserRepository userRepository)
-        //{
-        //    _userRepository = userRepository;
-        //}
-
-        //public async Task<int> CreateUserAsync(string name)
-        //{
-        //    var user = new User
-        //    {
-        //        Name = name
-        //    };
-
-        //    await _userRepository.AddUserAsync(user);
-        //    return user.Id;
-        //}
-
         private readonly IRabbitMqService _rabbitMqService;
 
         public UserService(IRabbitMqService rabbitMqService)

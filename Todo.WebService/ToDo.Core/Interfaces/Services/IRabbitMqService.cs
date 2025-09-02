@@ -13,8 +13,5 @@ namespace ToDo.Core.Interfaces.Services
         Task PublishUserAsync(CreateUserRequest request);
         Task SendMessageAsync<T>(T message, string queueName);
 
-
-
-
     }
 }
