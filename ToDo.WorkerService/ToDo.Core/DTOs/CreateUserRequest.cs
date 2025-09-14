@@ -11,10 +11,10 @@ namespace ToDo.Core.DTOs
     {
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
         [Required]
         [StringLength(100)]
-        public string Password { get; set; } = null!;
+        public required string Password { get; set; }
 
     }
 }

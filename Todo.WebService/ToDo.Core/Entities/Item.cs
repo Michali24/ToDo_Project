@@ -14,11 +14,11 @@ namespace ToDo.Core.Entities
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200)]
-        public string Title { get; set; } = string.Empty;
+        [StringLength(100, MinimumLength = 3)]
+        public required string Title { get; set; }
 
-        [StringLength(1000)]
-        public string? Description { get; set; }
+        [StringLength(300)]
+        public string? Description { get; set; } = string.Empty;
 
         public bool IsCompleted { get; set; } = false;
         public bool IsDeleted { get; set; } = false; // ✅ soft delete

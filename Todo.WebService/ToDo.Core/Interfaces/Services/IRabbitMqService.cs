@@ -9,7 +9,8 @@ namespace ToDo.Core.Interfaces.Services
 {
     public interface IRabbitMqService
     {
-        Task PublishItemAsync(CreateItemRequest request);
+        //Task PublishItemAsync(CreateItemRequest request);
+        Task PublishItemAsync(ItemMessageDto message);
         Task PublishUserAsync(CreateUserRequest request);
         Task SendMessageAsync<T>(T message, string queueName);
 

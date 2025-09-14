@@ -10,11 +10,14 @@ namespace ToDo.Core.DTOs
     public class CreateItemRequest
     {
         [Required]
-        public string Title { get; set; } = string.Empty;
+        [StringLength(100, MinimumLength = 3)]
+        public required string Title { get; set; }
 
-        public string? Description { get; set; }
+        [StringLength(300)]
+        public required string? Description { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        [Range(1, int.MaxValue)]
+        public required int UserId { get; set; }
     }
 }

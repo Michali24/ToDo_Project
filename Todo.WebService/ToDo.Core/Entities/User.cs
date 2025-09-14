@@ -17,9 +17,8 @@ namespace ToDo.Core.Entities
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [EmailAddress]
-        [StringLength(150)]
-        public string Email { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string Password { get; set; } = string.Empty;
 
         // Navigation property
         public virtual ICollection<Item> Items { get; set; } = new List<Item>();

@@ -1,32 +1,26 @@
-﻿using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
-using ToDo.Core.DTOs;
-using ToDo.Core.Entities;
-using ToDo.Core.Interfaces.Repositories;
+﻿using ToDo.Core.DTOs;
 using ToDo.Core.Interfaces.Services;
-using ToDo.Core.Settings;
 
 namespace ToDo.Service.Services
-{ 
+{
     public class ItemService: IItemService
     {
-        private readonly IRabbitMqService _mq;
-        private readonly string _itemQueueName;
+        private readonly IRabbitMqService _rabbitMqService;
+        //private readonly string _itemQueueName;
 
-        public ItemService(IRabbitMqService mq, Microsoft.Extensions.Options.IOptions<ToDo.Core.Settings.RabbitMqSettings> opts)
+        //public ItemService(IRabbitMqService mq, Microsoft.Extensions.Options.IOptions<ToDo.Core.Settings.RabbitMqSettings> opts)
+        //{
+        //    _mq = mq;
+        //    _itemQueueName = opts.Value.ItemQueue;
+        //}
+
+        public ItemService(IRabbitMqService rabbitMqService)
         {
-            _mq = mq;
-            _itemQueueName = opts.Value.ItemQueue;
+            _rabbitMqService = rabbitMqService;
         }
 
         public Task SendItemToQueueAsync(CreateItemRequest request)
         {
-            // בונים הודעה "שפת Worker"
             var msg = new ItemMessageDto
             {
                 Title = request.Title,
@@ -35,8 +29,7 @@ namespace ToDo.Service.Services
                 Action = "Create"
             };
 
-            // שולחים דרך התשתית
-            return _mq.SendMessageAsync(msg, _itemQueueName);
+            return _rabbitMqService.PublishItemAsync(msg);
         }
 
         public Task SoftDeleteItemAsync(int itemId)
@@ -46,7 +39,7 @@ namespace ToDo.Service.Services
                 ItemId = itemId,
                 Action = "Delete"
             };
-            return _mq.SendMessageAsync(msg, _itemQueueName);
+            return _rabbitMqService.PublishItemAsync(msg);
         }
 
         public Task CompleteItemAsync(int itemId)
@@ -56,8 +49,15 @@ namespace ToDo.Service.Services
                 ItemId = itemId,
                 Action = "Complete"
             };
-            return _mq.SendMessageAsync(msg, _itemQueueName);
+            return _rabbitMqService.PublishItemAsync(msg);
         }
+
+        //אפשר לכתוב גם בצורה הוז:
+        //public Task SoftDeleteItemAsync(int itemId)
+        //=> _mq.PublishItemAsync(new ItemMessageDto { ItemId = itemId, Action = "Delete" });
+
+        //public Task CompleteItemAsync(int itemId)
+        //    => _mq.PublishItemAsync(new ItemMessageDto { ItemId = itemId, Action = "Complete" });
 
     }
 }

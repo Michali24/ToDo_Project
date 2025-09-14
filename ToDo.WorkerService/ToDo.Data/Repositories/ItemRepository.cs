@@ -17,12 +17,14 @@ namespace ToDo.Data.Repositories
             _context = context;
         }
 
+        //Create new item
         public async Task AddItemAsync(Item item)
         {
             await _context.Items.AddAsync(item);
             await _context.SaveChangesAsync();
         }
 
+        //Mark item to Complete
         public async Task MarkItemAsCompletedAsync(int itemId)
         {
             var item = await _context.Items.FindAsync(itemId);
@@ -33,6 +35,7 @@ namespace ToDo.Data.Repositories
             }
         }
 
+        //Soft Delete to item
         public async Task SoftDeleteItemAsync(int itemId)
         {
             var item = await _context.Items.FindAsync(itemId);
@@ -42,7 +45,5 @@ namespace ToDo.Data.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
@@ -26,8 +25,11 @@ namespace ToDo.Service.Services
         }
 
         // עטיפות נוחות – אין לוגיקה בפנים, הכל עובר ל-SendMessageAsync
-        public Task PublishItemAsync(CreateItemRequest request)
-            => SendMessageAsync(request, _settings.ItemQueue);
+        //public Task PublishItemAsync(CreateItemRequest request)
+        //    => SendMessageAsync(request, _settings.ItemQueue);
+
+        public Task PublishItemAsync(ItemMessageDto message)
+              => SendMessageAsync(message, _settings.ItemQueue);
 
         public Task PublishUserAsync(CreateUserRequest request)
             => SendMessageAsync(request, _settings.UserQueue);
@@ -64,6 +66,7 @@ namespace ToDo.Service.Services
 
             // אין await אמיתי כאן – שומרים על חתימה אסינכרונית
             return Task.CompletedTask;
+
         }
 
     }

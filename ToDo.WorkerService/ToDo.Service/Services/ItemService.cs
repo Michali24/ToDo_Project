@@ -19,19 +19,6 @@ namespace ToDo.Service.Services
             _itemRepository = itemRepository;
         }
 
-        //public async Task HandleNewItemAsync(CreateItemRequest request)
-        //{
-        //    var item = new Item
-        //    {
-        //        Title = request.Title,
-        //        Description = request.Description,
-        //        IsCompleted = false,
-        //        UserId = request.UserId
-        //    };
-
-        //    await _itemRepository.AddItemAsync(item);
-        //}
-
         public async Task CompleteItemAsync(int itemId)
         {
             await _itemRepository.MarkItemAsCompletedAsync(itemId);
@@ -44,9 +31,15 @@ namespace ToDo.Service.Services
 
         public async Task HandleNewItemAsync(ItemMessageDto message)
         {
+            // הגנות ברורות במקום !null-forgiving
+            if (string.IsNullOrWhiteSpace(message.Title))
+                throw new ArgumentException("Title is required for Create.");
+            if (message.UserId <= 0)
+                throw new ArgumentException("UserId must be positive for Create.");
+
             var item = new Item
             {
-                Title = message.Title!,
+                Title = message.Title,
                 Description = message.Description,
                 UserId = message.UserId,
                 IsCompleted = false,

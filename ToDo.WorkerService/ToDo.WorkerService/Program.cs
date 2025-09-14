@@ -1,21 +1,16 @@
-﻿//using ToDo.WorkerService;
-
-//var builder = Host.CreateApplicationBuilder(args);
-//builder.Services.AddHostedService<Worker>();
-
-//var host = builder.Build();
-//host.Run();
-
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ToDo.Core.Interfaces.Repositories;
 using ToDo.Core.Interfaces.Services;
+using ToDo.Core.Settings;
 using ToDo.Data;
 using ToDo.Data.Repositories;
 using ToDo.Service.Services;
 using ToDo.WorkerService.Consumers;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.Configure<RabbitMqSettings>(
+    builder.Configuration.GetSection("RabbitMq"));
 
 // 🗄️ EF DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>

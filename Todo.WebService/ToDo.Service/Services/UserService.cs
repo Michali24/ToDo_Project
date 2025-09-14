@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDo.Core.DTOs;
 using ToDo.Core.Entities;
-using ToDo.Core.Interfaces.Repositories;
 using ToDo.Core.Interfaces.Services;
 
 namespace ToDo.Service.Services
@@ -19,10 +18,10 @@ namespace ToDo.Service.Services
             _rabbitMqService = rabbitMqService;
         }
 
-        public async Task SendUserToQueueAsync(CreateUserRequest request)
+        public Task SendUserToQueueAsync(CreateUserRequest request)
         {
             // שליחה ל-RabbitMQ בלבד – לא שומר ל-DB
-            await _rabbitMqService.PublishUserAsync(request);
+            return _rabbitMqService.PublishUserAsync(request);
         }
     }
 }

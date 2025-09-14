@@ -10,7 +10,7 @@ namespace ToDo.Core.Entities
     public class User
     {
         [Key]
-        public int Id { get; set; }  // מפתח ראשי
+        public int Id { get; set; }  
 
         [Required]
         [StringLength(100)]
@@ -21,6 +21,7 @@ namespace ToDo.Core.Entities
         public string Password { get; set; } = string.Empty;
 
         // קשר של אחד-לרבים מול Items
+        // Navigation property
         public ICollection<Item> Items { get; set; } = new List<Item>();
     }
 }

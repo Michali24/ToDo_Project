@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDo.Core.DTOs;
+﻿using ToDo.Core.DTOs;
 
 namespace ToDo.Core.Interfaces.Services
 {
@@ -11,9 +6,7 @@ namespace ToDo.Core.Interfaces.Services
     {
         //Task HandleNewItemAsync(CreateItemRequest request);
         Task HandleNewItemAsync(ItemMessageDto message);
-
         Task CompleteItemAsync(int itemId);
         Task SoftDeleteItemAsync(int itemId);
-
     }
 }

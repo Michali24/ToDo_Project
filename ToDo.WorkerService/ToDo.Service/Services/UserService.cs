@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDo.Core.DTOs;
+﻿using ToDo.Core.DTOs;
 using ToDo.Core.Entities;
 using ToDo.Core.Interfaces.Repositories;
 using ToDo.Core.Interfaces.Services;
