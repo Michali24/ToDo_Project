@@ -42,7 +42,7 @@ ToDo_Project/
 │
 └─ docker-compose.yml               # RabbitMQ + PostgreSQL for local development
 
-
+---
 ## Architecture
 
 ```mermaid
