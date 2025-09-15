@@ -54,7 +54,7 @@ namespace ToDo.Service.Services
             props.Persistent = true;
             props.ContentType = "application/json";//Lets consumers know the payload is in JSON format
 
-            // Send the msg to RabbitMQ 
+            // Send the msg to RabbitMQ .
             channel.BasicPublish(
                 exchange: "",
                 routingKey: queueName,

@@ -126,7 +126,7 @@ namespace ToDo.WorkerService.Consumers
 
         public override void Dispose()
         {
-            _channel?.Close();//Close the Channel
+            _channel?.Close();//Close the Channel.
             _connection?.Close();//Close the Connection
             base.Dispose();//Clean more things from the BackgroundService
         }
