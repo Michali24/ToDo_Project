@@ -20,7 +20,6 @@ namespace ToDo.Service.Services
 
         public Task SendUserToQueueAsync(CreateUserRequest request)
         {
-            // שליחה ל-RabbitMQ בלבד – לא שומר ל-DB
             return _rabbitMqService.PublishUserAsync(request);
         }
     }

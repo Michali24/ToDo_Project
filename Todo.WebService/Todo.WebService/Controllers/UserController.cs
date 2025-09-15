@@ -18,35 +18,12 @@ namespace Todo.WebService.Controllers
             _userService = userService;
         }
 
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
-            //var userId = await _userService.CreateUserAsync(name);
-            //return Ok(userId);
             await _userService.SendUserToQueueAsync(request);
             return Accepted("User creation sent to queue");
         }
 
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

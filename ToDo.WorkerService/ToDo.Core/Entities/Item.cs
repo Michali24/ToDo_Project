@@ -11,7 +11,7 @@ namespace ToDo.Core.Entities
     public class Item
     {
         [Key]
-        public int Id { get; set; }  // מפתח ראשי
+        public int Id { get; set; } 
 
         [Required]
         [StringLength(100, MinimumLength = 3)]

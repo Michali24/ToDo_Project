@@ -14,7 +14,7 @@ namespace ToDo.Core.DTOs
         public required string Title { get; set; }
 
         [StringLength(300)]
-        public required string? Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         [Range(1, int.MaxValue)]

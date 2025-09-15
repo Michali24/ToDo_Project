@@ -10,13 +10,14 @@ namespace ToDo.Core.DTOs
     public class ItemMessageDto
     {
         [Range(1, int.MaxValue)]
-        public int ItemId { get; set; }         // חובה ל־Complete/Delete
-        
+        public int ItemId { get; set; }         //Must to action complete/delete
+
         [StringLength(100, MinimumLength = 3)]
-        public string? Title { get; set; }      // חובה ל־Create
-   
-        public int UserId { get; set; }         // חובה ל־Create
-       
+        public string? Title { get; set; }      //Must to action create
+
+        public int UserId { get; set; }         //Must to action create
+
+
         [StringLength(300)]
         public string? Description { get; set; }
        

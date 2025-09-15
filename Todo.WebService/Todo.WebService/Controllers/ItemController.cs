@@ -18,18 +18,6 @@ namespace Todo.WebService.Controllers
             _itemService = itemService;
         }
 
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
         [HttpPost("create")]
         public async Task<IActionResult> CreateItem([FromBody] CreateItemRequest request)
         {

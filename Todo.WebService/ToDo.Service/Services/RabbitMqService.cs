@@ -24,47 +24,43 @@ namespace ToDo.Service.Services
             };
         }
 
-        // עטיפות נוחות – אין לוגיקה בפנים, הכל עובר ל-SendMessageAsync
-        //public Task PublishItemAsync(CreateItemRequest request)
-        //    => SendMessageAsync(request, _settings.ItemQueue);
-
         public Task PublishItemAsync(ItemMessageDto message)
               => SendMessageAsync(message, _settings.ItemQueue);
 
         public Task PublishUserAsync(CreateUserRequest request)
             => SendMessageAsync(request, _settings.UserQueue);
 
-        // מנוע כללי ומרוכז לכל השילוח
+        // Generic function for all actions
         public Task SendMessageAsync<T>(T message, string queueName)
         {
+            //An open TCP connection between your app and the broker (RabbitMQ server).
             using var connection = _factory.CreateConnection();
             using var channel = connection.CreateModel();
 
-            // אם התור לא קיים – נוצר עכשיו
+            // If the queue not create
             channel.QueueDeclare(
                 queue: queueName,
-                durable: true,
-                exclusive: false,
-                autoDelete: false,
+                durable: true,// The queue is kept even if RabbitMQ restarts.
+                exclusive: false,// The queue is open to any connection.
+                autoDelete: false,// The queue is not deleted automatically.
                 arguments: null);
 
             // Serialize → bytes
             var json = JsonSerializer.Serialize(message);
             var body = Encoding.UTF8.GetBytes(json);
 
-            // סימון ההודעה כ-persistent + טיפוס תוכן
+            // Message properties
             var props = channel.CreateBasicProperties();
             props.Persistent = true;
-            props.ContentType = "application/json";
+            props.ContentType = "application/json";//Lets consumers know the payload is in JSON format
 
-            // שליחה (Default Exchange)
+            // Send the msg to RabbitMQ 
             channel.BasicPublish(
                 exchange: "",
                 routingKey: queueName,
                 basicProperties: props,
                 body: body);
 
-            // אין await אמיתי כאן – שומרים על חתימה אסינכרונית
             return Task.CompletedTask;
 
         }

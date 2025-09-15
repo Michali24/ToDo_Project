@@ -9,7 +9,6 @@ namespace ToDo.Core.Interfaces.Services
 {
     public interface IUserService
     {
-        //Task<int> CreateUserAsync(string name);
         Task SendUserToQueueAsync(CreateUserRequest request);
 
     }

@@ -6,13 +6,6 @@ namespace ToDo.Service.Services
     public class ItemService: IItemService
     {
         private readonly IRabbitMqService _rabbitMqService;
-        //private readonly string _itemQueueName;
-
-        //public ItemService(IRabbitMqService mq, Microsoft.Extensions.Options.IOptions<ToDo.Core.Settings.RabbitMqSettings> opts)
-        //{
-        //    _mq = mq;
-        //    _itemQueueName = opts.Value.ItemQueue;
-        //}
 
         public ItemService(IRabbitMqService rabbitMqService)
         {
@@ -51,13 +44,5 @@ namespace ToDo.Service.Services
             };
             return _rabbitMqService.PublishItemAsync(msg);
         }
-
-        //אפשר לכתוב גם בצורה הוז:
-        //public Task SoftDeleteItemAsync(int itemId)
-        //=> _mq.PublishItemAsync(new ItemMessageDto { ItemId = itemId, Action = "Delete" });
-
-        //public Task CompleteItemAsync(int itemId)
-        //    => _mq.PublishItemAsync(new ItemMessageDto { ItemId = itemId, Action = "Complete" });
-
     }
 }
