@@ -11,16 +11,34 @@ namespace ToDo.Service.Services
 {
     public class UserService: IUserService
     {
-        private readonly IRabbitMqService _rabbitMqService;
+        //private readonly IRabbitMqService _rabbitMqService;
 
-        public UserService(IRabbitMqService rabbitMqService)
+        //public UserService(IRabbitMqService rabbitMqService)
+        //{
+        //    _rabbitMqService = rabbitMqService;
+        //}
+
+        //public Task SendUserToQueueAsync(CreateUserRequest request)
+        //{
+        //    return _rabbitMqService.PublishUserAsync(request);
+        //}
+
+
+        private readonly IRabbitMqRpc _rpc;
+
+        public UserService(IRabbitMqRpc rpc)
         {
-            _rabbitMqService = rabbitMqService;
+            _rpc = rpc;
         }
 
-        public Task SendUserToQueueAsync(CreateUserRequest request)
+        public async Task<OperationResponse> CreateUserAsync(CreateUserRequest request, CancellationToken ct = default)
         {
-            return _rabbitMqService.PublishUserAsync(request);
+            // כאן אין צורך לבנות DTO חדש – CreateUserRequest כבר מכיל את השדות הנכונים
+            return await _rpc.RequestUserAsync<CreateUserRequest, OperationResponse>(
+                payload: request,
+                timeout: TimeSpan.FromSeconds(10),
+                ct: ct);
         }
+
     }
 }

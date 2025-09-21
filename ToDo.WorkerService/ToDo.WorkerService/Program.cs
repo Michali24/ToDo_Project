@@ -9,6 +9,11 @@ using ToDo.WorkerService.Consumers;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+// 📝 הגדרת לוגים – כתיבה לקונסול
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+
 builder.Services.Configure<RabbitMqSettings>(
     builder.Configuration.GetSection("RabbitMq"));
 
@@ -30,4 +35,5 @@ builder.Services.AddHostedService<ItemConsumer>();
 
 var host = builder.Build();
 host.Run();
+
 

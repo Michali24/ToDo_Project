@@ -9,7 +9,10 @@ namespace ToDo.Core.Interfaces.Services
 {
     public interface IUserService
     {
-        Task SendUserToQueueAsync(CreateUserRequest request);
+        //Task SendUserToQueueAsync(CreateUserRequest request);
+
+        Task<OperationResponse> CreateUserAsync(CreateUserRequest request, CancellationToken ct = default);
+
 
     }
 }

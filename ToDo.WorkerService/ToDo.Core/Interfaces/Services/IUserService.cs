@@ -4,7 +4,9 @@ namespace ToDo.Core.Interfaces.Services
 {
     public interface IUserService
     {
-        Task HandleNewUserAsync(CreateUserRequest request);
+        //Task HandleNewUserAsync(CreateUserRequest request);
+
+        Task<OperationResponse> HandleNewUserAsync(CreateUserRequest request);
 
     }
 }
